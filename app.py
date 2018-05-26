@@ -7,7 +7,9 @@ db = TinyDB('db.json')
 table = db.table('subway')
 
 Data = Query()
-msg ={}
+msg =[]
+items = {}
+#i = 0
 
 
 class Search():
@@ -25,25 +27,34 @@ class Search():
                 # データをDBから取得
                 get_data = table.search((Data.name == name) & (Data.type == types))
                 # for文を使ってひとつづつデータをJSON形式に整形
+                # 1つのデータをディクショナリ化してリストに入れる
                 for row in get_data:
-                    msg['name'] = row['name']
-                    msg['name_en'] = row['name_en']
-                    msg['type'] = row['type']
-                    msg['price_regular']= row['price_regular']
-                    msg['price_footlong'] = row['price_footlong']
-                    if row['dressing']:
-                        msg['dressing'] = row['dressing']
-                    msg['calorie'] = row['calorie']
-                    msg['protein'] = row['protein']
-                    msg['lipid'] = row['lipid']
-                    msg['carbohydrate'] = row['carbohydrate']
-                    msg['sodium'] = row['sodium']
-                    msg['saltEquivalent'] = row['saltEquivalent']
-                    msg['detail'] = row['detail']
-                    msg['image_url'] = row['image_url']
-                    # JSON形式でレスポンス
-                    resp.body = json.dumps(msg)
-                    resp.status = falcon.HTTP_200
+                    msg.append({
+                        'name': row['name'],
+                        'name_en': row['name_en'],
+                        'type':  row['type'],
+                        'price_regular': row['price_regular'],
+                        'price_footlong': row['price_footlong'],
+                        'dressing': row['dressing'],
+                        'calorie': row['calorie'],
+                        'protein': row['protein'],
+                        'lipid': row['lipid'],
+                        'carbohydrate':  row['carbohydrate'],
+                        'sodium':  row['sodium'],
+                        'saltEquivalent':  row['saltEquivalent'],
+                        'detail': row['detail'],
+                        'image_url': row['image_url'],
+                    })
+
+                i = 0
+
+                for les in msg:
+                    items[i] = les
+                    i = i + 1
+
+                # JSON形式でレスポンス
+                resp.body = json.dumps(items)
+                resp.status = falcon.HTTP_200
 
             else:
                 # nameパラメータのみに値が存在するとき
@@ -51,24 +62,32 @@ class Search():
                 get_data = table.search(Data.name == name)
                 # for文を使ってひとつづつデータをJSON形式に整形
                 for row in get_data:
-                    msg['name'] = row['name']
-                    msg['name_en'] = row['name_en']
-                    msg['type'] = row['type']
-                    msg['price_regular']= row['price_regular']
-                    msg['price_footlong'] = row['price_footlong']
-                    if row['dressing']:
-                        msg['dressing'] = row['dressing']
-                    msg['calorie'] = row['calorie']
-                    msg['protein'] = row['protein']
-                    msg['lipid'] = row['lipid']
-                    msg['carbohydrate'] = row['carbohydrate']
-                    msg['sodium'] = row['sodium']
-                    msg['saltEquivalent'] = row['saltEquivalent']
-                    msg['detail'] = row['detail']
-                    msg['image_url'] = row['image_url']
-                    # JSON形式でレスポンス
-                    resp.body = json.dumps(msg)
-                    resp.status = falcon.HTTP_200
+                    msg.append({
+                        'name': row['name'],
+                        'name_en': row['name_en'],
+                        'type':  row['type'],
+                        'price_regular': row['price_regular'],
+                        'price_footlong': row['price_footlong'],
+                        'dressing': row['dressing'],
+                        'calorie': row['calorie'],
+                        'protein': row['protein'],
+                        'lipid': row['lipid'],
+                        'carbohydrate':  row['carbohydrate'],
+                        'sodium':  row['sodium'],
+                        'saltEquivalent':  row['saltEquivalent'],
+                        'detail': row['detail'],
+                        'image_url': row['image_url'],
+                    })
+
+                i = 0
+
+                for les in msg:
+                    items[i] = les
+                    i = i + 1
+
+                # JSON形式でレスポンス
+                resp.body = json.dumps(items)
+                resp.status = falcon.HTTP_200
 
         else:
             if types:
@@ -77,50 +96,66 @@ class Search():
                 get_data = table.search(Data.type == types)
                 # for文を使ってひとつづつデータをJSON形式に整形
                 for row in get_data:
-                    msg['name'] = row['name']
-                    msg['name_en'] = row['name_en']
-                    msg['type'] = row['type']
-                    msg['price_regular']= row['price_regular']
-                    msg['price_footlong'] = row['price_footlong']
-                    if row['dressing']:
-                        msg['dressing'] = row['dressing']
-                    msg['calorie'] = row['calorie']
-                    msg['protein'] = row['protein']
-                    msg['lipid'] = row['lipid']
-                    msg['carbohydrate'] = row['carbohydrate']
-                    msg['sodium'] = row['sodium']
-                    msg['saltEquivalent'] = row['saltEquivalent']
-                    msg['detail'] = row['detail']
-                    msg['image_url'] = row['image_url']
-                    # JSON形式でレスポンス
-                    resp.body = json.dumps(msg)
-                    resp.status = falcon.HTTP_200
+                    print(row['name'])
+                    msg.append({
+                        'name': row['name'],
+                        'name_en': row['name_en'],
+                        'type':  row['type'],
+                        'price_regular': row['price_regular'],
+                        'price_footlong': row['price_footlong'],
+                        'dressing': row['dressing'],
+                        'calorie': row['calorie'],
+                        'protein': row['protein'],
+                        'lipid': row['lipid'],
+                        'carbohydrate':  row['carbohydrate'],
+                        'sodium':  row['sodium'],
+                        'saltEquivalent':  row['saltEquivalent'],
+                        'detail': row['detail'],
+                        'image_url': row['image_url'],
+                    })
+
+                i = 0
+
+                # リストmsg
+                for les in msg:
+                    items[i] = les
+                    i = i + 1
+
+                # JSON形式でレスポンス
+                resp.body = json.dumps(items)
 
             else:
                 # パラメータが指定されていない場合、全てのエントリを返す
                 # データをDBから取得
                 get_data = table.all()
                 # for文を使ってひとつづつデータをJSON形式に整形
-                for row in get_data:
-                    msg['name'] = row['name']
-                    msg['name_en'] = row['name_en']
-                    msg['type'] = row['type']
-                    msg['price_regular']= row['price_regular']
-                    msg['price_footlong'] = row['price_footlong']
-                    if row['dressing']:
-                        msg['dressing'] = row['dressing']
-                    msg['calorie'] = row['calorie']
-                    msg['protein'] = row['protein']
-                    msg['lipid'] = row['lipid']
-                    msg['carbohydrate'] = row['carbohydrate']
-                    msg['sodium'] = row['sodium']
-                    msg['saltEquivalent'] = row['saltEquivalent']
-                    msg['detail'] = row['detail']
-                    msg['image_url'] = row['image_url']
+            for row in get_data:
+                msg.append({
+                    'name': row['name'],
+                    'name_en': row['name_en'],
+                    'type':  row['type'],
+                    'price_regular': row['price_regular'],
+                    'price_footlong': row['price_footlong'],
+                    'dressing': row['dressing'],
+                    'calorie': row['calorie'],
+                    'protein': row['protein'],
+                    'lipid': row['lipid'],
+                    'carbohydrate':  row['carbohydrate'],
+                    'sodium':  row['sodium'],
+                    'saltEquivalent':  row['saltEquivalent'],
+                    'detail': row['detail'],
+                    'image_url': row['image_url'],
+                })
 
-                    # JSON形式でレスポンス
-                    resp.body = json.dumps(msg)
-                    resp.status = falcon.HTTP_200
+            i = 0
+
+            for les in msg:
+                items[i] = les
+                i = i + 1
+
+                # JSON形式でレスポンス
+            resp.body = json.dumps(items)
+            resp.status = falcon.HTTP_200
 
 '''
 class Random(Object):
