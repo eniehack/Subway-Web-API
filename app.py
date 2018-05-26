@@ -26,60 +26,12 @@ class Search():
                 # name,typeパラメータ共に値が存在するとき
                 # データをDBから取得
                 get_data = table.search((Data.name == name) & (Data.type == types))
-                # for文を使ってひとつづつデータをJSON形式に整形
-                # 条件に合うデータ(商品)の数だけ、データをディクショナリ化。そのディクショナリをリストmsgに入れる
-                for row in get_data:
-                    msg.append({
-                        'name': row['name'],
-                        'name_en': row['name_en'],
-                        'type':  row['type'],
-                        'price_regular': row['price_regular'],
-                        'price_footlong': row['price_footlong'],
-                        'dressing': row['dressing'],
-                        'calorie': row['calorie'],
-                        'protein': row['protein'],
-                        'lipid': row['lipid'],
-                        'carbohydrate':  row['carbohydrate'],
-                        'sodium':  row['sodium'],
-                        'saltEquivalent':  row['saltEquivalent'],
-                        'detail': row['detail'],
-                        'image_url': row['image_url'],
-                    })
-
-                # 作成されたリストの項だけレスポンス用ディクショナリitemsに挿入し続ける
-                i = 0
-                for les in msg:
-                    items[i] = les
-                    i = i + 1
 
             else:
                 # nameパラメータのみに値が存在するとき
                 # データをDBから取得
                 get_data = table.search(Data.name == name)
-                # for文を使ってひとつづつデータをJSON形式に整形
-                for row in get_data:
-                    msg.append({
-                        'name': row['name'],
-                        'name_en': row['name_en'],
-                        'type':  row['type'],
-                        'price_regular': row['price_regular'],
-                        'price_footlong': row['price_footlong'],
-                        'dressing': row['dressing'],
-                        'calorie': row['calorie'],
-                        'protein': row['protein'],
-                        'lipid': row['lipid'],
-                        'carbohydrate':  row['carbohydrate'],
-                        'sodium':  row['sodium'],
-                        'saltEquivalent':  row['saltEquivalent'],
-                        'detail': row['detail'],
-                        'image_url': row['image_url'],
-                    })
-
-                i = 0
-
-                for les in msg:
-                    items[i] = les
-                    i = i + 1
+                # for文を使ってひとつづつデータをJSON形式に整
 
         else:
             if types:
@@ -87,60 +39,43 @@ class Search():
                 # データをDBから取得
                 get_data = table.search(Data.type == types)
                 # for文を使ってひとつづつデータをJSON形式に整形
-                for row in get_data:
-                    print(row['name'])
-                    msg.append({
-                        'name': row['name'],
-                        'name_en': row['name_en'],
-                        'type':  row['type'],
-                        'price_regular': row['price_regular'],
-                        'price_footlong': row['price_footlong'],
-                        'dressing': row['dressing'],
-                        'calorie': row['calorie'],
-                        'protein': row['protein'],
-                        'lipid': row['lipid'],
-                        'carbohydrate':  row['carbohydrate'],
-                        'sodium':  row['sodium'],
-                        'saltEquivalent':  row['saltEquivalent'],
-                        'detail': row['detail'],
-                        'image_url': row['image_url'],
-                    })
-
-                i = 0
-
-                # リストmsg
-                for les in msg:
-                    items[i] = les
-                    i = i + 1
 
             else:
                 # パラメータが指定されていない場合、全てのエントリを返す
                 # データをDBから取得
                 get_data = table.all()
                 # for文を使ってひとつづつデータをJSON形式に整形
-            for row in get_data:
-                msg.append({
-                    'name': row['name'],
-                    'name_en': row['name_en'],
-                    'type':  row['type'],
-                    'price_regular': row['price_regular'],
-                    'price_footlong': row['price_footlong'],
-                    'dressing': row['dressing'],
-                    'calorie': row['calorie'],
-                    'protein': row['protein'],
-                    'lipid': row['lipid'],
-                    'carbohydrate':  row['carbohydrate'],
-                    'sodium':  row['sodium'],
-                    'saltEquivalent':  row['saltEquivalent'],
-                    'detail': row['detail'],
-                    'image_url': row['image_url'],
-                })
 
-            i = 0
+        # for文を使ってひとつづつデータをJSON形式に整形
+        # 条件に合うデータ(商品)の数だけ、データをディクショナリ化。そのディクショナリをリストmsgに入れる
+        for row in get_data:
+            msg.append({
+                'name': row['name'],
+                'name_en': row['name_en'],
+                'type':  row['type'],
+                'price_regular': row['price_regular'],
+                'price_footlong': row['price_footlong'],
+                'dressing': row['dressing'],
+                'calorie': row['calorie'],
+                'protein': row['protein'],
+                'lipid': row['lipid'],
+                'carbohydrate':  row['carbohydrate'],
+                'sodium':  row['sodium'],
+                'saltEquivalent':  row['saltEquivalent'],
+                'detail': row['detail'],
+                'image_url': row['image_url'],
+            })
 
-            for les in msg:
-                items[i] = les
-                i = i + 1
+        print(msg)
+
+        # 作成されたリストの項だけレスポンス用ディクショナリitemsに挿入し続ける
+        i = 0
+        for les in msg:
+            items[i] = les
+            print(i)
+            i = i + 1
+
+        print(items)
 
         # JSON形式でレスポンス
         resp.body = json.dumps(items)
