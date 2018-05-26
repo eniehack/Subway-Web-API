@@ -27,7 +27,7 @@ class Search():
                 # データをDBから取得
                 get_data = table.search((Data.name == name) & (Data.type == types))
                 # for文を使ってひとつづつデータをJSON形式に整形
-                # 1つのデータをディクショナリ化してリストに入れる
+                # 条件に合うデータ(商品)の数だけ、データをディクショナリ化。そのディクショナリをリストmsgに入れる
                 for row in get_data:
                     msg.append({
                         'name': row['name'],
@@ -46,15 +46,11 @@ class Search():
                         'image_url': row['image_url'],
                     })
 
+                # 作成されたリストの項だけレスポンス用ディクショナリitemsに挿入し続ける
                 i = 0
-
                 for les in msg:
                     items[i] = les
                     i = i + 1
-
-                # JSON形式でレスポンス
-                resp.body = json.dumps(items)
-                resp.status = falcon.HTTP_200
 
             else:
                 # nameパラメータのみに値が存在するとき
@@ -84,10 +80,6 @@ class Search():
                 for les in msg:
                     items[i] = les
                     i = i + 1
-
-                # JSON形式でレスポンス
-                resp.body = json.dumps(items)
-                resp.status = falcon.HTTP_200
 
         else:
             if types:
@@ -121,9 +113,6 @@ class Search():
                     items[i] = les
                     i = i + 1
 
-                # JSON形式でレスポンス
-                resp.body = json.dumps(items)
-
             else:
                 # パラメータが指定されていない場合、全てのエントリを返す
                 # データをDBから取得
@@ -153,9 +142,8 @@ class Search():
                 items[i] = les
                 i = i + 1
 
-                # JSON形式でレスポンス
-            resp.body = json.dumps(items)
-            resp.status = falcon.HTTP_200
+        # JSON形式でレスポンス
+        resp.body = json.dumps(items)
 
 '''
 class Random(Object):
