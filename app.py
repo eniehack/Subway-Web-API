@@ -29,20 +29,17 @@ class Search():
                 # nameパラメータのみに値が存在するとき
                 # データをDBから取得
                 get_data = table.search(Data.name == name)
-                # for文を使ってひとつづつデータをJSON形式に整
 
         else:
             if types:
                 # typeパラメータのみに値が存在するとき
                 # データをDBから取得
                 get_data = table.search(Data.type == types)
-                # for文を使ってひとつづつデータをJSON形式に整形
 
             else:
                 # パラメータが指定されていない場合、全てのエントリを返す
                 # データをDBから取得
                 get_data = table.all()
-                # for文を使ってひとつづつデータをJSON形式に整形
 
         # for文を使ってひとつづつデータをJSON形式に整形
         # 条件に合うデータ(商品)の数だけ、データをディクショナリ化。そのディクショナリをリストmsgに入れる
@@ -53,8 +50,6 @@ class Search():
             items[i] = row
             print(i)
             i = i + 1
-
-        print(items)
 
         # JSON形式でレスポンス
         resp.body = json.dumps(items)
