@@ -1,5 +1,5 @@
-import falcon
 import json
+import falcon
 from tinydb import TinyDB, Query
 
 #変数dbにjsonの場所を指定
@@ -9,13 +9,11 @@ table = db.table('subway')
 Data = Query()
 msg =[]
 items = {}
-#i = 0
 
 
 class Search():
-
+    '''パラメータを取得し、その条件を満たしたデータだけを返す'''
     def on_get(self, req, resp):
-
         # パラメータを取得
         name = req.get_param('name')
         types = req.get_param('type')
@@ -48,30 +46,11 @@ class Search():
 
         # for文を使ってひとつづつデータをJSON形式に整形
         # 条件に合うデータ(商品)の数だけ、データをディクショナリ化。そのディクショナリをリストmsgに入れる
-        for row in get_data:
-            msg.append({
-                'name': row['name'],
-                'name_en': row['name_en'],
-                'type':  row['type'],
-                'price_regular': row['price_regular'],
-                'price_footlong': row['price_footlong'],
-                'dressing': row['dressing'],
-                'calorie': row['calorie'],
-                'protein': row['protein'],
-                'lipid': row['lipid'],
-                'carbohydrate':  row['carbohydrate'],
-                'sodium':  row['sodium'],
-                'saltEquivalent':  row['saltEquivalent'],
-                'detail': row['detail'],
-                'image_url': row['image_url'],
-            })
-
-        print(msg)
-
-        # 作成されたリストの項だけレスポンス用ディクショナリitemsに挿入し続ける
         i = 0
-        for les in msg:
-            items[i] = les
+
+        for row in get_data:
+            # 作成されたリストの項だけレスポンス用ディクショナリitemsに挿入し続ける
+            items[i] = row
             print(i)
             i = i + 1
 
