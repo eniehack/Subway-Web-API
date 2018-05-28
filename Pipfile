@@ -8,6 +8,11 @@ falcon = "*"
 tinydb = "*"
 
 [dev-packages]
+requests = "*"
+bottle = "*"
+pylint = "*"
+beautifulsoup4 = "*"
+lxml = "*"
 
 [requires]
 python_version = "3.6"
