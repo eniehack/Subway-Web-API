@@ -1,6 +1,6 @@
 init:
     pip install pipenv
-    pipenv install --dev
+    pipenv install -d
 
 test:
     pipenv run py.test tests
