@@ -48,7 +48,6 @@ class Search():
         for row in get_data:
             # 作成されたリストの項だけレスポンス用ディクショナリitemsに挿入し続ける
             items[i] = row
-            print(i)
             i = i + 1
 
         # JSON形式でレスポンス
