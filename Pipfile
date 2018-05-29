@@ -9,7 +9,6 @@ tinydb = "*"
 
 [dev-packages]
 requests = "*"
-bottle = "*"
 pylint = "*"
 beautifulsoup4 = "*"
 lxml = "*"
