@@ -1,0 +1,3 @@
+/.venv
+/src/db.json
+Pipfile.lock
