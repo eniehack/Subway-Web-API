@@ -8,7 +8,7 @@ falcon = "*"
 tinydb = "*"
 
 [dev-packages]
-requests = "*"
+requests = ">=2.20.0"
 pylint = "*"
 beautifulsoup4 = "*"
 lxml = "*"
