@@ -8,6 +8,7 @@ falcon = "*"
 tinydb = "*"
 
 [dev-packages]
+urllib3 = ">=1.23"
 requests = ">=2.20.0"
 pylint = "*"
 beautifulsoup4 = "*"
